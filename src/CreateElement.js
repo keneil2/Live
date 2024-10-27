@@ -1,34 +1,10 @@
 class CreateElement {
   /**
-   * @param {*} element
-   * @param {*} childrenContent children content
-   * @param {*} Class
-   * @param {*} props
-   * @param {*} children if you want more than one children must be an array of elements name in the right order
+   * @param elementObject
    */
 
   // todo: pass an object instead of an the values re-write the class basically learn recursion algorithm for nested html tags
-  constructor(elementObject={
-    type:"",
-
-    content:"",
-
-   attributes:{},
-
-   children:{
-
-    element:{
-
-      content:"",
-
-      attributes:"",
-
-      children:{
-
-      }
-    }
-   }
-  }) {
+  constructor(elementObject) {
     this.elementObject = elementObject;
   }
   /**
@@ -36,23 +12,41 @@ class CreateElement {
    * @returns Element
    */
   create() {
-    let container= null;
-    if(Object.hasOwn(this.elementObject,"type")){
-        let ParentElement = this.elementObject.type;
-       container=document.createElement(ParentElement);
-    }else{
+    let container = null;
+
+    if (Object.hasOwn(this.elementObject, "type")) {
+
+      let ParentElement = this.elementObject.type;
+
+      container = document.createElement(ParentElement);
+
+    } else {
+
       throw new Error("your missing the element type");
-      
+
     }
 
-    if(Object.hasOwn(this.elementObject,"attributes")){
-       console.log(this.elementObject.attributes)
-        this.propsHandler(container,this.elementObject.attributes);
+    if (Object.hasOwn(this.elementObject, "attributes")) {
+
+      this.attributesHandler(container, this.elementObject.attributes);
+
     }
 
-    if(Object.hasOwn(this.elementObject,"children")){
-         this.createChildren(this.elementObject.children,container);
+    if (Object.hasOwn(this.elementObject, "content")) {
+
+      container.innerText = this.elementObject.content;
+
     }
+
+    if (Object.hasOwn(this.elementObject, "children")) {
+     
+      this.createChildren(container, this.elementObject.children);
+
+    }
+    if(Object.hasOwn(this.elementObject, "props")){
+    
+    }
+
     return container;
   }
 
@@ -60,7 +54,7 @@ class CreateElement {
    * handle props
    * @param {*} element
    */
-  propsHandler(element,props) {
+  attributesHandler(element, props) {
     if (typeof props === "object") {
       const events = [
         // Mouse Events
@@ -152,11 +146,6 @@ class CreateElement {
     }
   }
 
-
-
-
-
-
   /**
    * add class Name to an element
    * @param {*} Element
@@ -171,83 +160,38 @@ class CreateElement {
    * @param {*} element
    * @param {*} parent_element
    */
-  createChildren(child, parent_element) {
-  
-    if( typeof child == "object"){
-     let  children=Object.entries(child);
+  createChildren(parent_element, child) {
+    if (Array.isArray(child)) {
+      child.forEach((element) => {
+        console.log(element);
+        if (element !== null) {
+          let container = document.createElement(element.type);
 
-   
-      let container=document.createElement(children[0][0]);
+          if (element.attributes) {
+            console.log("has attributes");
+            this.propsHandler(container, element.attributes);
+          }
 
-  if(children[0][1].attributes){
-      this.propsHandler(container,children[0][1].attributes);
-     }
+          if (element.content) {
+            container.innerText = element.content;
+          }
 
-      container.innerText=children[0][1].content.replace('"','');
+          if (element.children) {
+            console.log(element.children);
+            this.createChildren(container, element.children);
+          }
 
-      if(children[0][1].children){
-
-      this.createChildren(children[0][1].children,container);
-      
-      }
-      
-
-      parent_element.appendChild(container);
-    }else{
-      throw new Error("invalid child, childeren  must  be an object");
-      
-    }
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // if (Array.isArray(element)) {
-    //   let child = document.createElement(element[0]);
-    //   const textNode = document.createTextNode(element[1]);
-    //   child.appendChild(textNode);
-    //   parent_element.appendChild(child);
-    // } else {
-    //   if (Object.entries(element)[0][0] !== "0") {
-    //     // console.log(typeof Object.entries(element)[0][0]);
-    //     console.log(Object.entries(element)[0][0]);
-    //     let child = document.createElement(Object.entries(element)[0][0]);
-    //     const textNode = document.createTextNode(Object.entries(element)[0][1]);
-    //     child.appendChild(textNode);
-    //     parent_element.appendChild(child);
-    //   }
-
-      // child.appendChild(textNode);
-      // parent_element.appendChild(child);
+          parent_element.appendChild(container);
+        }
+      });
+    } else {
+      throw new Error("invalid child, childeren  must  be an array");
     }
   }
-// }
+  propsHandler(props,parent){
+   parent.innerHTML=`<script>
+   ${props[0]=0}
+   </script>`
+  }
+}
 export default CreateElement;
