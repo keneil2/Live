@@ -1,1 +1,1 @@
-this is just me trying to make a library similar to react so far I have only created the CreateElement class my version at least
+this is just me trying to make a library similar to react so far I have only created the CreateElement class (my version at least) so far the props only works for content and its not as greate as react's. 😁
