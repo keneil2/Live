@@ -3,5 +3,4 @@ const  Rootdiv = document.getElementById("root");
 components.forEach(element => {
    Rootdiv.appendChild(element); 
 });
-
 }

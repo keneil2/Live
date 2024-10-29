@@ -4,8 +4,9 @@ class CreateElement {
    */
 
   // todo: pass an object instead of an the values re-write the class basically learn recursion algorithm for nested html tags
-  constructor(elementObject) {
+  constructor(elementObject,props) {
     this.elementObject = elementObject;
+    this.props=props;
   }
   /**
    * creates all the this passed to the Create Element Constructor
@@ -33,8 +34,10 @@ class CreateElement {
     }
 
     if (Object.hasOwn(this.elementObject, "content")) {
-
-      container.innerText = this.elementObject.content;
+         if(this.elementObject.content){
+        container.innerText = this.propsHandler(this.elementObject.content);   
+         }
+     
 
     }
 
@@ -42,9 +45,6 @@ class CreateElement {
      
       this.createChildren(container, this.elementObject.children);
 
-    }
-    if(Object.hasOwn(this.elementObject, "props")){
-    
     }
 
     return container;
@@ -126,7 +126,7 @@ class CreateElement {
         "ontouchend",
         "ontouchcancel",
 
-        // Others
+        // Others,
         "onwheel",
       ];
 
@@ -136,7 +136,8 @@ class CreateElement {
 
           const func = attributes[1];
 
-          element[event] = func;
+          element[event] = func; 
+          
         } else {
           element.setAttribute(attributes[0], attributes[1]);
         }
@@ -168,12 +169,13 @@ class CreateElement {
           let container = document.createElement(element.type);
 
           if (element.attributes) {
-            console.log("has attributes");
-            this.propsHandler(container, element.attributes);
+            this.attributesHandler(container,element.attributes);
           }
 
           if (element.content) {
-            container.innerText = element.content;
+           const content= element.content;
+            container.innerText=this.propsHandler(content);
+                 
           }
 
           if (element.children) {
@@ -188,10 +190,34 @@ class CreateElement {
       throw new Error("invalid child, childeren  must  be an array");
     }
   }
-  propsHandler(props,parent){
-   parent.innerHTML=`<script>
-   ${props[0]=0}
-   </script>`
+
+  
+  propsHandler(content){
+    const substr=content.substr(content.indexOf("{"), content.indexOf("}"))
+                
+                
+    if(substr!==""){ 
+
+     const pathWay=substr.match(/\{(.+?)\}/,"")[1].split(".");
+    
+    let propValue=null;
+
+    pathWay.reduce((obj,key)=>{
+     if(this.props[key]!==undefined){
+       propValue= this.props[key];
+     }else{
+      throw new Error(`${key} not defined`);
+     }
+   
+
+   });
+
+return content.replace(/\{+[a-zA-Z0-9\.]+\}+/,propValue);  
+
+    }else{
+      return content;
+    }
+ 
   }
 }
 export default CreateElement;

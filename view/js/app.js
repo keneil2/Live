@@ -4,7 +4,7 @@ import Render from "../../src/RenderComponent.js";
 const app = () => {
   Render([
     Nav(),
-
+    
   ])
 };
 // parser=new DOMParser;

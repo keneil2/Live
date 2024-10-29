@@ -1,34 +1,30 @@
 import CreateElement from "./../../../src/CreateElement.js";
 // todo:make it possible to have nested child elements
 let prop=0;
-const Nav = () => {
+const Nav = (props) => {
   const elementCreator = new CreateElement({
     type: "nav",
 
     attributes: { class: "flex w-full p-4 items-center bg-black text-white",
       onclick:()=>{
          prop++;
-         console.log(prop)
       }
-
      },
-     
     children: [
       {
         type: "ul",
+        attributes:{class:"flex gap-10"},
         children: [
           {
             type: "li",
             children: [
               {
                 attributes: {
-                  href: "signup",
+                  href: `signup`,
                 },
-                props:{
-                  count:0,
-                },
+               
                 type: "a",
-                content: `sign up ${count}`,
+                content: `sign up {props.count}`,
               },
             ],
           },
@@ -45,9 +41,10 @@ const Nav = () => {
             ],
           },
         ],
-        attributes:{class:"flex gap-10"}
       },
     ],
+  },{
+   count:0
   });
   return elementCreator.create();
 };
