@@ -8,7 +8,6 @@
     <script type="module" src="./view/js/app.js"></script>
 </head>
 <body>
-<div id="root">
-</div>
+<div id="root"></div>
 </body>
 </html>

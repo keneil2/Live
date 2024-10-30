@@ -193,31 +193,16 @@ class CreateElement {
 
   
   propsHandler(content){
-    const substr=content.substr(content.indexOf("{"), content.indexOf("}"))
-                
-                
-    if(substr!==""){ 
-
-     const pathWay=substr.match(/\{(.+?)\}/,"")[1].split(".");
-    
-    let propValue=null;
-
-    pathWay.reduce((obj,key)=>{
-     if(this.props[key]!==undefined){
-       propValue= this.props[key];
-     }else{
-      throw new Error(`${key} not defined`);
-     }
-   
-
-   });
-
-return content.replace(/\{+[a-zA-Z0-9\.]+\}+/,propValue);  
-
-    }else{
-      return content;
-    }
+if(Array.isArray(content)){
+  if(content[1]==undefined){
+   throw new Error("undefined props passed")
+  }
+   return content[0]+content[1];
+}else{
+  return content;
+}
  
   }
+
 }
 export default CreateElement;
