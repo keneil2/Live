@@ -1,1 +1,2 @@
-this is just me trying to make a library similar to react so far I have only created the CreateElement class (my version at least) so far the props only works for content and its not as greate as react's. 😁
+this is just me trying to make a library similar to react so far I have only created the CreateElement class (my version at least) so far the props only works for content and its not as greate as react's. 😁 
+props work for create elements but not for the parser it can only parse htlm so to design use tailwind add the cnd to the index.php file so far it cannot handle self closing tags and js express those are the things I need to work on next 
