@@ -3,7 +3,7 @@ class CreateElement {
    * @param elementObject
    */
 
-  // todo: pass an object instead of an the values re-write the class basically learn recursion algorithm for nested html tags
+  // todo: pass an object instead of an the values re-write the class basically  use recursion algorithm for nested html tags
   constructor(elementObject,props) {
     this.elementObject = elementObject;
     this.props=props;
@@ -139,7 +139,7 @@ class CreateElement {
           element[event] = func; 
           
         } else {
-          element.setAttribute(attributes[0], attributes[1]);
+          element.setAttribute(attributes[0], attributes[1].replace(/["']/g,''));
         }
       });
     } else {
@@ -173,7 +173,7 @@ class CreateElement {
           }
 
           if (element.content) {
-           const content= element.content;
+           const content= element.content.replace(/[{}]/g,"");
             container.innerText=this.propsHandler(content);
                  
           }
