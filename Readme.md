@@ -22,3 +22,7 @@ Here are the next steps to improve the library:
 1. Include the **Tailwind CSS CDN** in your `index.php`:  
    ```html
    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+2.  When you open the project in your terminal if you have php install just run `php -S localhost:port` ( you can use port 8000 if you want)
+3. go the the url in your terminal and you should be okay after that
+
+## Remember its not perfect I only have 1 year learning exp with php and a little js so my code is sh*it 🤣
